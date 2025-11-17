@@ -14,7 +14,7 @@ export default async function MasterLayout({
 }) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
-  const activeThemeValue = cookieStore.get("innrack_active_theme")?.value;
+  
   return (
     <ThemeProvider
       attribute="class"
@@ -22,7 +22,7 @@ export default async function MasterLayout({
       disableTransitionOnChange
       enableColorScheme
     >
-      <ActiveThemeProvider initialTheme={activeThemeValue}>
+      <ActiveThemeProvider>
         <SidebarProvider defaultOpen={defaultOpen}>
           <AppSidebarMenu />
           <SidebarInset>

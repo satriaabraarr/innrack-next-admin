@@ -18,7 +18,7 @@ import { NavUser } from "./nav-user";
 import Image from "next/image";
 import logo from "@/public/innrack_logo.png";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Home,
   Boxes,
@@ -30,17 +30,10 @@ import {
   ChevronRight,
   Target,
 } from "lucide-react";
-import { useThemeConfig } from "@/components/active-theme-provider";
 
 export function AppSidebarMenu() {
   const currentPath = usePathname();
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const { activeTheme } = useThemeConfig();
-
-  // Debug active theme
-  useEffect(() => {
-    console.log("Active Theme:", activeTheme);
-  }, [activeTheme]);
 
   const menuItems = [
     {
@@ -104,96 +97,6 @@ export function AppSidebarMenu() {
     return submenu?.some((subItem) => currentPath === subItem.href);
   };
 
-  // Fallback color berdasarkan theme
-  const getThemeColor = () => {
-    switch (activeTheme) {
-      case 'blue':
-      case 'blue-scaled':
-        return 'bg-blue-500 hover:bg-blue-600';
-      case 'green':
-      case 'green-scaled':
-        return 'bg-green-500 hover:bg-green-600';
-      case 'amber':
-      case 'amber-scaled':
-        return 'bg-amber-500 hover:bg-amber-600';
-      case 'violet':
-      case 'violet-scaled':
-        return 'bg-violet-500 hover:bg-violet-600';
-      case 'mono-scaled':
-        return 'bg-gray-600 hover:bg-gray-700';
-      default:
-        return 'bg-slate-500 hover:bg-slate-600';
-    }
-  };
-
-  const getThemeShadow = () => {
-    switch (activeTheme) {
-      case 'blue':
-      case 'blue-scaled':
-        return 'shadow-blue-500/30';
-      case 'green':
-      case 'green-scaled':
-        return 'shadow-green-500/30';
-      case 'amber':
-      case 'amber-scaled':
-        return 'shadow-amber-500/30';
-      case 'violet':
-      case 'violet-scaled':
-        return 'shadow-violet-500/30';
-      case 'mono-scaled':
-        return 'shadow-gray-500/30';
-      default:
-        return 'shadow-slate-500/30';
-    }
-  };
-
-  const getTextHoverColor = () => {
-    switch (activeTheme) {
-      case 'blue':
-      case 'blue-scaled':
-        return 'group-hover:text-blue-600';
-      case 'green':
-      case 'green-scaled':
-        return 'group-hover:text-green-600';
-      case 'amber':
-      case 'amber-scaled':
-        return 'group-hover:text-amber-600';
-      case 'violet':
-      case 'violet-scaled':
-        return 'group-hover:text-violet-600';
-      case 'mono-scaled':
-        return 'group-hover:text-gray-600';
-      default:
-        return 'group-hover:text-slate-600';
-    }
-  };
-
-  const getActiveTextColor = () => {
-    switch (activeTheme) {
-      case 'blue':
-      case 'blue-scaled':
-        return 'text-blue-600';
-      case 'green':
-      case 'green-scaled':
-        return 'text-green-600';
-      case 'amber':
-      case 'amber-scaled':
-        return 'text-amber-600';
-      case 'violet':
-      case 'violet-scaled':
-        return 'text-violet-600';
-      case 'mono-scaled':
-        return 'text-gray-600';
-      default:
-        return 'text-slate-600';
-    }
-  };
-
-  const themeColor = getThemeColor();
-  const themeShadow = getThemeShadow();
-  const textHoverColor = getTextHoverColor();
-  const activeTextColor = getActiveTextColor();
-
   return (
     <Sidebar variant="inset" collapsible="offcanvas" className="w-64">
       <SidebarHeader>
@@ -213,7 +116,7 @@ export function AppSidebarMenu() {
 
       <SidebarContent className="px-1 py-2">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-slate-400 mb-4 px-2 flex items-center gap-2">
+          <SidebarGroupLabel className="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-4 px-2 flex items-center gap-2">
             MAIN MENU
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -234,8 +137,8 @@ export function AppSidebarMenu() {
                           onClick={() => toggleSubmenu(item.key)}
                           className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer ${
                             isActive || hasActiveSubmenu
-                              ? `${themeColor} text-white shadow-lg ${themeShadow} border-0`
-                              : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 hover:shadow-md border border-transparent hover:border-blue-200/50"
+                              ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 border-0"
+                              : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-md border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
                           } flex items-center gap-2 p-3 rounded-md w-full text-left h-10`}
                         >
                           {/* Icon */}
@@ -244,7 +147,7 @@ export function AppSidebarMenu() {
                               className={`w-5 h-5 transition-all duration-300 ${
                                 isActive || hasActiveSubmenu
                                   ? "text-white"
-                                  : `text-gray-900 ${textHoverColor}`
+                                  : "text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
                               }`}
                             />
                           </div>
@@ -255,7 +158,7 @@ export function AppSidebarMenu() {
                               className={`font-medium text-sm transition-colors duration-300 ${
                                 isActive || hasActiveSubmenu
                                   ? "text-white"
-                                  : "text-gray-900 group-hover:text-gray-900"
+                                  : "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                               }`}
                             >
                               {item.label}
@@ -269,7 +172,7 @@ export function AppSidebarMenu() {
                                 className={`w-4 h-4 ${
                                   isActive || hasActiveSubmenu
                                     ? "text-white"
-                                    : "text-gray-900"
+                                    : "text-slate-400"
                                 }`}
                               />
                             ) : (
@@ -277,7 +180,7 @@ export function AppSidebarMenu() {
                                 className={`w-4 h-4 ${
                                   isActive || hasActiveSubmenu
                                     ? "text-white"
-                                    : "text-gray-900"
+                                    : "text-slate-400"
                                 }`}
                               />
                             )}
@@ -288,8 +191,8 @@ export function AppSidebarMenu() {
                           asChild
                           className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] ${
                             isActive
-                              ? `${themeColor} text-white shadow-lg ${themeShadow} border-0`
-                              : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 hover:shadow-md border border-transparent hover:border-blue-200/50"
+                              ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 border-0"
+                              : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-md border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
                           }`}
                         >
                           <Link
@@ -302,7 +205,7 @@ export function AppSidebarMenu() {
                                 className={`w-5 h-5 transition-all duration-300 ${
                                   isActive
                                     ? "text-white"
-                                    : `text-gray-900 ${textHoverColor}`
+                                    : "text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
                                 }`}
                               />
                             </div>
@@ -313,7 +216,7 @@ export function AppSidebarMenu() {
                                 className={`font-medium text-sm transition-colors duration-300 ${
                                   isActive
                                     ? "text-white"
-                                    : "text-gray-900 group-hover:text-gray-900"
+                                    : "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                                 }`}
                               >
                                 {item.label}
@@ -344,8 +247,8 @@ export function AppSidebarMenu() {
                                   asChild
                                   className={`group relative overflow-hidden transition-all duration-300 ${
                                     isSubActive
-                                      ? `${activeTextColor} font-semibold hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 hover:shadow-sm border border-transparent hover:border-blue-200/50`
-                                      : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 hover:shadow-sm border border-transparent hover:border-blue-200/50"
+                                      ? "text-blue-600 dark:text-blue-400 font-semibold hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-sm border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
+                                      : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-sm border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
                                   }`}
                                 >
                                   <Link
@@ -357,8 +260,8 @@ export function AppSidebarMenu() {
                                       <div
                                         className={`font-medium text-sm transition-colors duration-300 ${
                                           isSubActive
-                                            ? activeTextColor
-                                            : "text-gray-900 group-hover:text-gray-900"
+                                            ? "text-blue-600 dark:text-blue-400"
+                                            : "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100"
                                         }`}
                                       >
                                         {subItem.label}

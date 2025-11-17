@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ThemeSelector } from "./theme-selector";
 import { cn } from "@/lib/utils";
 
 export async function SiteHeader() {
@@ -17,9 +16,6 @@ export async function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
         {/* <h1 className="text-base font-medium">Innrack</h1> */}
-        <div className="flex flex-row ml-auto gap-2">
-          <ThemeSelector />
-        </div>
       </div>
     </header>
   );
