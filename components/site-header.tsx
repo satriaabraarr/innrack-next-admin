@@ -16,7 +16,7 @@ export async function SiteHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <h1 className="text-base font-medium">InnSight</h1>
+        {/* <h1 className="text-base font-medium">Innrack</h1> */}
         <div className="flex flex-row ml-auto gap-2">
           <ThemeSelector />
         </div>

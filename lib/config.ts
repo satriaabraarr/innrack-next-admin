@@ -1,8 +1,8 @@
 export const siteConfig = {
-  name: "Innsight",
-  url: "https://innsight.dare5.id",
+  name: "Innrack",
+  url: "https://innrack.id",
   //   ogImage: "https://ui.shadcn.com/og.jpg",
-  description: "KPI/OKR sistem untuk Koperasi & UMKM",
+  description: "Inventory Management System",
   navItems: [
     {
       href: "/docs/installation",

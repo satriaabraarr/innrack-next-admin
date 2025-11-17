@@ -244,7 +244,7 @@ export function AppSidebarMenu() {
                               className={`w-5 h-5 transition-all duration-300 ${
                                 isActive || hasActiveSubmenu
                                   ? "text-white"
-                                  : `text-slate-600 ${textHoverColor}`
+                                  : `text-gray-900 ${textHoverColor}`
                               }`}
                             />
                           </div>
@@ -255,7 +255,7 @@ export function AppSidebarMenu() {
                               className={`font-medium text-sm transition-colors duration-300 ${
                                 isActive || hasActiveSubmenu
                                   ? "text-white"
-                                  : "text-slate-700 group-hover:text-slate-900"
+                                  : "text-gray-900 group-hover:text-gray-900"
                               }`}
                             >
                               {item.label}
@@ -269,7 +269,7 @@ export function AppSidebarMenu() {
                                 className={`w-4 h-4 ${
                                   isActive || hasActiveSubmenu
                                     ? "text-white"
-                                    : "text-slate-400"
+                                    : "text-gray-900"
                                 }`}
                               />
                             ) : (
@@ -277,7 +277,7 @@ export function AppSidebarMenu() {
                                 className={`w-4 h-4 ${
                                   isActive || hasActiveSubmenu
                                     ? "text-white"
-                                    : "text-slate-400"
+                                    : "text-gray-900"
                                 }`}
                               />
                             )}
@@ -302,7 +302,7 @@ export function AppSidebarMenu() {
                                 className={`w-5 h-5 transition-all duration-300 ${
                                   isActive
                                     ? "text-white"
-                                    : `text-slate-600 ${textHoverColor}`
+                                    : `text-gray-900 ${textHoverColor}`
                                 }`}
                               />
                             </div>
@@ -313,7 +313,7 @@ export function AppSidebarMenu() {
                                 className={`font-medium text-sm transition-colors duration-300 ${
                                   isActive
                                     ? "text-white"
-                                    : "text-slate-700 group-hover:text-slate-900"
+                                    : "text-gray-900 group-hover:text-gray-900"
                                 }`}
                               >
                                 {item.label}
@@ -358,7 +358,7 @@ export function AppSidebarMenu() {
                                         className={`font-medium text-sm transition-colors duration-300 ${
                                           isSubActive
                                             ? activeTextColor
-                                            : "text-slate-700 group-hover:text-slate-900"
+                                            : "text-gray-900 group-hover:text-gray-900"
                                         }`}
                                       >
                                         {subItem.label}
