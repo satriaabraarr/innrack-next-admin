@@ -16,7 +16,7 @@ import {
 import Link from "next/link";
 import { NavUser } from "./nav-user";
 import Image from "next/image";
-import logo from "@/public/innsight_logo.png";
+import logo from "@/public/innrack_logo.png";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
@@ -204,7 +204,7 @@ export function AppSidebarMenu() {
               className="data-[slot=sidebar-menu-button]:!p-6 bg-white flex justify-center"
             >
               <Link href="/">
-                <Image src={logo} alt="Innsight" width={100} height={40} />
+                <Image src={logo} alt="Innrack" width={150} height={60} />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
