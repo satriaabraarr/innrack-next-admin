@@ -93,6 +93,16 @@ export function AppSidebarMenu() {
     setOpenSubmenu(openSubmenu === itemKey ? null : itemKey);
   };
 
+  const isMenuActive = (item: any) => {
+    const exactMatch = currentPath === item.href;
+    
+    if (item.key === "Dashboard") {
+      return exactMatch;
+    }
+    
+    return exactMatch || currentPath.startsWith(item.href + '/');
+  };
+
   const isSubmenuActive = (submenu: any[]) => {
     return submenu?.some((subItem) => currentPath === subItem.href);
   };
@@ -116,14 +126,14 @@ export function AppSidebarMenu() {
 
       <SidebarContent className="px-1 py-2">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-4 px-2 flex items-center gap-2">
+          <SidebarGroupLabel className="text-xs font-semibold text-slate-400 mb-4 px-2 flex items-center gap-2">
             MAIN MENU
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
               {menuItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = currentPath === item.href;
+                const isActive = isMenuActive(item);
                 const isSubmenuOpen = openSubmenu === item.key;
                 const hasActiveSubmenu =
                   item.hasSubmenu && isSubmenuActive(item.submenu);
@@ -137,8 +147,8 @@ export function AppSidebarMenu() {
                           onClick={() => toggleSubmenu(item.key)}
                           className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer ${
                             isActive || hasActiveSubmenu
-                              ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 border-0"
-                              : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-md border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
+                              ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25 border-0 hover:bg-blue-600"
+                              : "hover:bg-blue-50 hover:shadow-md border border-transparent hover:border-blue-200/50"
                           } flex items-center gap-2 p-3 rounded-md w-full text-left h-10`}
                         >
                           {/* Icon */}
@@ -147,7 +157,7 @@ export function AppSidebarMenu() {
                               className={`w-5 h-5 transition-all duration-300 ${
                                 isActive || hasActiveSubmenu
                                   ? "text-white"
-                                  : "text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                                  : "text-slate-600 group-hover:text-blue-600"
                               }`}
                             />
                           </div>
@@ -158,7 +168,7 @@ export function AppSidebarMenu() {
                               className={`font-medium text-sm transition-colors duration-300 ${
                                 isActive || hasActiveSubmenu
                                   ? "text-white"
-                                  : "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                                  : "text-slate-700 group-hover:text-slate-900"
                               }`}
                             >
                               {item.label}
@@ -191,8 +201,8 @@ export function AppSidebarMenu() {
                           asChild
                           className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] ${
                             isActive
-                              ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 border-0"
-                              : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-md border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
+                              ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25 border-0 hover:bg-blue-600"
+                              : "hover:bg-blue-50 hover:shadow-md border border-transparent hover:border-blue-200/50"
                           }`}
                         >
                           <Link
@@ -205,7 +215,7 @@ export function AppSidebarMenu() {
                                 className={`w-5 h-5 transition-all duration-300 ${
                                   isActive
                                     ? "text-white"
-                                    : "text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                                    : "text-slate-600 group-hover:text-blue-600"
                                 }`}
                               />
                             </div>
@@ -216,7 +226,7 @@ export function AppSidebarMenu() {
                                 className={`font-medium text-sm transition-colors duration-300 ${
                                   isActive
                                     ? "text-white"
-                                    : "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                                    : "text-slate-700 group-hover:text-slate-900"
                                 }`}
                               >
                                 {item.label}
@@ -247,8 +257,8 @@ export function AppSidebarMenu() {
                                   asChild
                                   className={`group relative overflow-hidden transition-all duration-300 ${
                                     isSubActive
-                                      ? "text-blue-600 dark:text-blue-400 font-semibold hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-sm border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
-                                      : "hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50 dark:hover:from-slate-800 dark:hover:to-blue-950 hover:shadow-sm border border-transparent hover:border-blue-200/50 dark:hover:border-blue-800/50"
+                                      ? "text-blue-500 font-semibold hover:text-blue-600 hover:bg-blue-50 hover:shadow-sm border border-transparent hover:border-blue-200/50"
+                                      : "hover:bg-blue-50 hover:shadow-sm border border-transparent hover:border-blue-200/50"
                                   }`}
                                 >
                                   <Link
@@ -260,8 +270,8 @@ export function AppSidebarMenu() {
                                       <div
                                         className={`font-medium text-sm transition-colors duration-300 ${
                                           isSubActive
-                                            ? "text-blue-600 dark:text-blue-400"
-                                            : "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100"
+                                            ? "text-blue-500 group-hover:text-blue-600"
+                                            : "text-slate-700 group-hover:text-slate-900"
                                         }`}
                                       >
                                         {subItem.label}
