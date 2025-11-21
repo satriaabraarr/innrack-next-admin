@@ -9,8 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ThemeBadge } from "@/components/theme-badge";
 import Image from "next/image";
-import { useThemeConfig } from "@/components/active-theme-provider"; // TAMBAH INI
 
 // Sample data sesuai dengan struktur database
 const products = [
@@ -72,7 +72,6 @@ const products = [
 ];
 
 export default function ProductCatalogTable() {
-  const { activeTheme } = useThemeConfig(); // TAMBAH INI
   
   // Format currency untuk Indonesia
   const formatCurrency = (amount: number) => {
@@ -81,38 +80,6 @@ export default function ProductCatalogTable() {
       currency: 'IDR',
       minimumFractionDigits: 0,
     }).format(amount);
-  };
-
-  // Style untuk status bundle berdasarkan tema
-  const getBundleStyle = (isBundle: boolean) => {
-    if (!isBundle) {
-      return "bg-gray-100 text-gray-800 border border-gray-200";
-    }
-
-    // Style untuk bundle berdasarkan tema aktif
-    switch (activeTheme) {
-      case 'default': // Silver
-        return "bg-slate-100 text-slate-800 border border-slate-200";
-      case 'blue':
-        return "bg-blue-100 text-blue-800 border border-blue-200";
-      case 'green':
-        return "bg-green-100 text-green-800 border border-green-200";
-      case 'amber':
-        return "bg-amber-100 text-amber-800 border border-amber-200";
-      case 'violet':
-        return "bg-violet-100 text-violet-800 border border-violet-200";
-      case 'mono-scaled':
-        return "bg-gray-100 text-gray-800 border border-gray-200";
-      default:
-        return "bg-blue-100 text-blue-800 border border-blue-200";
-    }
-  };
-
-  // Style untuk status active (tetap sama karena merah/hijau universal)
-  const getActiveStyle = (isActive: boolean) => {
-    return isActive 
-      ? "bg-green-100 text-green-800 border border-green-200"
-      : "bg-red-100 text-red-800 border border-red-200";
   };
 
   // Fallback image jika image_path tidak ada
@@ -124,7 +91,7 @@ export default function ProductCatalogTable() {
   };
 
   return (
-    <div className="border rounded-lg bg-white">
+    <div className="border rounded-lg bg-white p-2 shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>
@@ -169,29 +136,27 @@ export default function ProductCatalogTable() {
                 </div>
               </TableCell>
               
-              {/* Kolom Bundle */}
+              {/* Kolom Bundle - Pakai ThemeBadge */}
               <TableCell>
-                <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getBundleStyle(
-                    product.is_bundle
-                  )}`}
+                <ThemeBadge 
+                  variant="bundle"
+                  status={product.is_bundle}
                 >
                   {product.is_bundle ? "Bundle" : "Single"}
-                </span>
+                </ThemeBadge>
               </TableCell>
               
-              {/* Kolom Status Active */}
+              {/* Kolom Status Active - Pakai ThemeBadge */}
               <TableCell>
-                <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getActiveStyle(
-                    product.is_active
-                  )}`}
+                <ThemeBadge 
+                  variant="active"
+                  status={product.is_active}
                 >
                   {product.is_active ? "Active" : "Inactive"}
-                </span>
+                </ThemeBadge>
               </TableCell>
               
-              {/* Kolom Actions */}
+              {/* Kolom Actions (tetap sama) */}
               <TableCell>
                 <div className="flex space-x-1">
                   <button 
